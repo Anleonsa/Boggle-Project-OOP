@@ -1,0 +1,48 @@
+.headerUser {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 17px;
+  font-family: consolas;
+  color: #fff;
+}
+
+.headerEditNameBtn {
+  padding: 2px 8px;
+  font-size: 16px;
+  background-color: var(--mid-orange);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.headerFormEditName {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: #345;
+}
+
+.headerFormInputName {
+  padding: 3px 5px;
+  font-size: 17px;
+  background-color: #234;
+  color: #eee;
+  border: none;
+  outline: 0;
+}
+
+.headerAcceptNameBtn,
+.headerCancelNameBtn {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+.headerAcceptNameBtn {
+  background-color: #0c2;
+}
+.headerCancelNameBtn {
+  background-color: #f21;
+}

@@ -1,0 +1,54 @@
+@property --color-1 {
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: false;
+}
+
+@property --color-2 {
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: false;
+}
+
+@property --color-3 {
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: false;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+  background-color: var(--dark-blue);
+
+  --color-1: rgba(2,0,36,1);
+  --color-2: rgba(0,95,171,1);
+  --color-3: var(--light-blue);
+
+  transition: var(--transition-bg-dark-mode-time) --color-1,
+  var(--transition-bg-dark-mode-time) --color-2,
+  var(--transition-bg-dark-mode-time) --color-3;
+
+  background: var(--color-1);
+  background: -moz-linear-gradient(204deg, var(--color-1) 0%, var(--color-2) 33%, var(--color-3) 100%);
+  background: -webkit-linear-gradient(204deg, var(--color-1) 0%, var(--color-2) 33%, var(--color-3) 100%);
+  background: linear-gradient(204deg, var(--color-1) 0%, var(--color-2) 33%, var(--color-3) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#005a6c",GradientType=1);
+
+}
+
+[color-scheme="dark"] .header {
+  --color-1: rgba(2,0,36,1);
+  --color-2: rgba(0,0,0,1);
+  --color-3: rgba(0,90,108,1);
+}
+
+.header__title {
+  margin: 0;
+  text-align: center;
+  color: #fff;
+}

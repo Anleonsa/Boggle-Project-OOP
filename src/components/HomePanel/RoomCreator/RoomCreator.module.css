@@ -1,0 +1,72 @@
+.roomCreator {
+  background-color: #DDD;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: solid 4px #bbb;
+  border-bottom: solid 4px #bbb;
+  transition: background-color var(--transition-bg-dark-mode-time)
+}
+[color-scheme="dark"] .roomCreator{
+  background-color: #212124;
+  border-color: #666;
+}
+
+.roomCreator_titleContainer{
+  flex-grow: 2;
+}
+
+.roomCreator__title {
+  flex-grow: 4;
+  margin: 0;
+  text-align: center;
+  color: #666;
+  font-size: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transition: color var(--transition-bg-dark-mode-time);
+}
+[color-scheme = "dark"] .roomCreator__title {
+  color: #DDD;
+}
+
+.roomCreator__formContainer {
+  flex-grow: 2;
+  border-left: solid #bbb 4px;
+  padding: 10px 20px;
+}
+[color-scheme="dark"] .roomCreator__formContainer {
+  border-color: #666;
+}
+
+.roomCreator__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  transition: var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .roomCreator__form {
+  background-color: #000;
+  color: #fff;
+}
+
+.roomCreator__form__optionContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.roomCreator_btnSubmit {
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 22px;
+  
+  background-color: #e80;
+  transition: background-color var(--transition-bg-dark-mode-time);
+ }
+
+.roomCreator_btnSubmit:hover {
+  background-color: #fa0;
+}

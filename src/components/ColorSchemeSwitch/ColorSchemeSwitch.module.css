@@ -1,0 +1,27 @@
+.colorSchemeSwitch {
+  width: 60px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: var(--light-blue);
+  border: solid 4px #fff;
+  transition: background-color var(--transition-bg-dark-mode-time), border-color var(--transition-bg-dark-mode-time);
+}
+
+[color-scheme="dark"] .colorSchemeSwitch {
+  background-color: #444;
+  border-color: #000;
+}
+
+.colorSchemeBall {
+  position: relative;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background-color: #ff0;
+  border-radius: 15px;
+  transition: left .3s, background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .colorSchemeBall {
+  background-color: #fff;
+  left: 30px;
+}
