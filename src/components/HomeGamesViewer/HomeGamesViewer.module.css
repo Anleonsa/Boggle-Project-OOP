@@ -1,0 +1,74 @@
+.gamesViewer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin: 10px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gamesViewer {
+  background-color: #242628;
+}
+
+.gamesViewerMsg {
+  font-size: 20px;
+  color: #445;
+  transition: var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gamesViewerMsg {
+  color: #ccc;
+}
+
+.gameCard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+  overflow: hidden;
+  transition:
+    background-color var(--transition-bg-dark-mode-time),
+    color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameCard {
+  background-color: #121416;
+  color: #fff;
+}
+
+.gameCardItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 3px 10px;
+  border-bottom: solid 2px #eee;
+  transition: border-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameCardItem {
+  border-color: #333;
+}
+
+.gameCardValue {
+  padding: 2px 4px;
+  background-color: #eef;
+  border-radius: 5px;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameCardValue {
+  background-color: #333;
+}
+
+.gameCardItem_id {
+  font-size: 20px;
+  color: #fff;
+  background-color: #07d;
+}
+[color-scheme="dark"] .gameCardItem_id {
+  background-color: #07f;
+}
+
+.gameCardId, [color-scheme="dark"] .gameCardId {
+  background-color: unset;
+}

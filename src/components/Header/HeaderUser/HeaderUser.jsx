@@ -1,20 +1,27 @@
 import { useState } from 'react'
 import css from './HeaderUser.module.css'
 
-const HeaderUser = ({ name }) => {
-  const [userName, setUserName] = useState(name)
+/* global sessionStorage */
+const HeaderUser = () => {
+  const [userName, setUserName] = useState(sessionStorage.getItem('username'))
   const [editing, setEditing] = useState(false)
 
   const updateTempName = (e) => {
     setUserName(e.target.value)
   }
   const cancelEditName = () => {
-    setUserName(name)
+    sessionStorage.setItem('username', sessionStorage.getItem('username') ?? 'guest')
+    setUserName(sessionStorage.getItem('username'))
     setEditing(false)
   }
   const updateName = (e) => {
     e.preventDefault()
-    // Code to update name
+    sessionStorage.setItem('username', sessionStorage.getItem('username') ?? 'guest')
+    if (userName === '') {
+      setEditing(false)
+      setUserName(sessionStorage.getItem('username'))
+    }
+    sessionStorage.setItem('username', userName)
     setEditing(false)
   }
 
@@ -35,7 +42,7 @@ const HeaderUser = ({ name }) => {
           : (
             <>
               <span className={css.userName}>{userName}</span>
-              <button className={css.headerEditNameBtn + ' clickable'} onClick={() => setEditing(true)}>Edit</button>
+              <button className={css.headerEditNameBtn + ' clickable'} onClick={() => setEditing(true)}>Cambiar nombre</button>
             </>
             )
         }

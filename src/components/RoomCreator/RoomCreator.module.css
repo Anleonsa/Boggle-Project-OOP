@@ -44,7 +44,9 @@
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
-  transition: var(--transition-bg-dark-mode-time);
+  transition:
+    background-color var(--transition-bg-dark-mode-time),
+    color var(--transition-bg-dark-mode-time);
 }
 [color-scheme="dark"] .roomCreator__form {
   background-color: #000;
@@ -53,8 +55,30 @@
 
 .roomCreator__form__optionContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
+}
+.roomCreator__form__optionContainer label{
+  font-weight: 500;
+  color: #555;
+  min-width: 215px;
+  transition: color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .roomCreator__form__optionContainer label {
+  color: #ddd;
+}
+
+.roomCreator__form__optionViewer {
+  min-width: 40px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #ccc;
+  transition:
+    background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .roomCreator__form__optionViewer {
+  background-color: #666;
 }
 
 .roomCreator_btnSubmit {
