@@ -2,6 +2,7 @@ import css from './HomeGamesViewer.module.css'
 import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 import { serverURL } from '../../serverData'
+import { useNavigate } from 'react-router-dom'
 
 const socket = io(serverURL)
 
@@ -15,6 +16,10 @@ const HomeGamesViewer = () => {
     return () => socket.off('data-games')
   }, [])
 
+  useEffect(() => {
+    socket.emit('sync-data-games')
+  })
+
   return (
     <section className={css.gamesViewer}>
       {Object.keys(games).length !== 0
@@ -25,6 +30,7 @@ const HomeGamesViewer = () => {
               boardSize={game.boardSize}
               roundsNumber={game.roundsNumber}
               duration={game.duration}
+              status={game.status}
               key={id}
             />
           )
@@ -38,7 +44,20 @@ const HomeGamesViewer = () => {
   )
 }
 
-const GameCard = ({ id, boardSize, roundsNumber, duration }) => {
+/* global sessionStorage */
+const GameCard = ({ id, boardSize, roundsNumber, duration, status }) => {
+  const POSSIBLE_GAME_STATUS = {
+    open: 'open',
+    started: 'started'
+  }
+
+  const navigate = useNavigate()
+
+  const entryGame = () => {
+    sessionStorage.setItem('playing-room', id)
+    navigate('/game')
+  }
+
   return (
     <div className={css.gameCard}>
       <div className={`${css.gameCardItem} ${css.gameCardItem_id}`}>
@@ -57,6 +76,7 @@ const GameCard = ({ id, boardSize, roundsNumber, duration }) => {
         <span>Duración por ronda:</span>
         <span className={css.gameCardValue}>{duration} minutos</span>
       </div>
+      {status === POSSIBLE_GAME_STATUS.open ? <button onClick={entryGame} className={`${css.gameCardJoinBtn} clickable`}>Unirse</button> : <span className={css.gameInGame}>Partida en juego</span>}
     </div>
   )
 }

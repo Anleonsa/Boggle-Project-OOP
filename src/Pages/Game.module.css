@@ -1,0 +1,71 @@
+.gameFlexContainer {
+  background-color: #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+[color-scheme="dark"] .gameFlexContainer {
+  background-color: #3345;
+}
+
+.gameBoardContainer {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.gameStartBtn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 35px;
+  border: none;
+  border-radius: 10px;
+  outline: 0;
+  background-color: #09f;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+
+.gameStartBtn:hover {
+  background-color: #0cf;
+}
+
+.formWord {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 50px auto 10px auto;
+  padding: 15px;
+  width: 95%;
+  max-width: 600px;
+  background-color: #efefef;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .formWord {
+  background-color: #333;
+}
+
+.gameInputWord {
+  font-size: 30px;
+  padding: 5px;
+  border: none;
+  outline: 0;
+  background-color: #d5d5d5;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameInputWord {
+  background-color: #222;
+  color: #eee;
+}
+
+.gameSubmitWordBtn {
+  font-size: 30px;
+  padding: 1.7px;
+  background-color: var(--mid-orange);
+  color: #fff;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+.gameSubmitWordBtn:hover {
+  background-color: #c60;
+}

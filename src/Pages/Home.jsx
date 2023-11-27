@@ -23,11 +23,6 @@ const Home = () => {
     })
   }
 
-  /* useEffect(() => {
-    console.log('Hello wolerld: ' + socket.id)
-    sessionStorage.setItem('name_id', sessionStorage.getItem('name_id') ?? socket.id)
-  }, []) */
-
   return (
     <>
       <Header />

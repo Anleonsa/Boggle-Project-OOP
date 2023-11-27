@@ -3,7 +3,10 @@ import css from './HeaderUser.module.css'
 
 /* global sessionStorage */
 const HeaderUser = () => {
-  const [userName, setUserName] = useState(sessionStorage.getItem('username'))
+  const [userName, setUserName] = useState(() => {
+    sessionStorage.setItem('username', sessionStorage.getItem('username') ?? 'Guest')
+    return sessionStorage.getItem('username')
+  })
   const [editing, setEditing] = useState(false)
 
   const updateTempName = (e) => {

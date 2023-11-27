@@ -72,3 +72,22 @@
 .gameCardId, [color-scheme="dark"] .gameCardId {
   background-color: unset;
 }
+
+.gameCardJoinBtn {
+  border: none;
+  outline: 0;
+  padding: 5px;
+  font-size: 18px;
+  color: #fff;
+  background-color: var(--mid-blue);
+  transition: var(--transition-bg-dark-mode-time);
+}
+.gameCardJoinBtn:hover {
+  background-color: #07f;
+}
+
+.gameInGame {
+  text-align: center;
+  font-weight: 500;
+  padding: 0 5px 5px 5px;
+}

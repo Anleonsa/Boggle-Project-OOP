@@ -1,0 +1,29 @@
+.gamePlayersList {
+  padding: 10px;
+  background-color: #ddd;
+  min-width: 220px;
+}
+
+.gamePlayersListTitle {
+  margin: 10px 0;
+  font-size: 30px;
+  font-weight: 800;
+  font-family: consolas;
+  color: #444;
+}
+
+.gamePlayersListUl {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 0;
+  list-style: none;
+}
+
+.gamePlayersListLi {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: consolas;
+}
+
+

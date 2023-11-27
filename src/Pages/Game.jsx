@@ -1,4 +1,4 @@
-// import css from './Game.module.css'
+import css from './Game.module.css'
 import { io } from 'socket.io-client'
 import { serverURL } from '../serverData'
 import { useEffect, useState } from 'react'
@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import GameHeader from '../components/Header/GameHeader'
 import { setUpColorScheme } from '../logic/color-scheme'
 import GamePlayersList from '../components/GamePlayersList/GamePlayersList'
+import GameBoard from '../components/GameBoard/GameBoard'
 
 const socket = io(serverURL)
 
 /* global sessionStorage */
 const Game = () => {
   const [game, setGame] = useState()
+  const [writtenWord, setWrittenWord] = useState()
   const navigate = useNavigate()
 
   setUpColorScheme()
@@ -73,11 +75,45 @@ const Game = () => {
     }
   }, [])
 
+  const POSSIBLE_GAME_STATUS = {
+    open: 'open',
+    started: 'started'
+  }
+
+  const startGame = () => {
+    socket.emit('start-game', sessionStorage.getItem('playing-room'))
+  }
+
+  const updateWord = e => {
+    setWrittenWord(e.target.value)
+  }
+
+  /* const submitWord = word => {
+    if (testWord(word)) {
+      socket.emit('add-written-word')
+    }
+  } */
+
   return (
     <>
       <GameHeader />
-      {game?.b}
-      {game?.players ? <GamePlayersList players={game?.players} /> : ''}
+      <main className={css.gameMain}>
+        <div className={css.gameFlexContainer}>
+          <div className={css.gameBoardContainer}>
+            {game?.board ? <GameBoard board={game.board} status={game.status} /> : ''}
+          </div>
+          {game?.players ? <GamePlayersList players={game?.players} /> : ''}
+        </div>
+        {
+          (sessionStorage.getItem('game-player-id') === '1' && game?.status === POSSIBLE_GAME_STATUS.open)
+            ? <button className={`${css.gameStartBtn} clickable`} onClick={startGame}>Iniciar juego</button>
+            : ''
+        }
+        <form className={css.formWord}>
+          <input type='text' className={css.gameInputWord} placeholder='Escribe la palabra' onChange={updateWord} value={writtenWord} />
+          <input type='submit' className={css.gameSubmitWordBtn} />
+        </form>
+      </main>
     </>
 
   )
