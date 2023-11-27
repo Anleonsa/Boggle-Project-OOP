@@ -7,6 +7,7 @@ import GameHeader from '../components/Header/GameHeader'
 import { setUpColorScheme } from '../logic/color-scheme'
 import GamePlayersList from '../components/GamePlayersList/GamePlayersList'
 import GameBoard from '../components/GameBoard/GameBoard'
+import { checkWord } from '../logic/check-word'
 
 const socket = io(serverURL)
 
@@ -88,11 +89,13 @@ const Game = () => {
     setWrittenWord(e.target.value)
   }
 
-  /* const submitWord = word => {
-    if (testWord(word)) {
-      socket.emit('add-written-word')
+  const submitWord = e => {
+    e.preventDefault()
+    if (checkWord(game.board, writtenWord)) {
+      window.alert('Good la palabra macho')
+      // socket.emit('add-written-word')
     }
-  } */
+  }
 
   return (
     <>
@@ -109,8 +112,8 @@ const Game = () => {
             ? <button className={`${css.gameStartBtn} clickable`} onClick={startGame}>Iniciar juego</button>
             : ''
         }
-        <form className={css.formWord}>
-          <input type='text' className={css.gameInputWord} placeholder='Escribe la palabra' onChange={updateWord} value={writtenWord} />
+        <form className={css.formWord} onSubmit={submitWord}>
+          <input type='text' className={css.gameInputWord} placeholder='Escribe la palabra' onChange={updateWord} />
           <input type='submit' className={css.gameSubmitWordBtn} />
         </form>
       </main>
