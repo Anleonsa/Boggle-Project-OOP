@@ -1,1 +1,1 @@
-export const serverURL = 'https://boggle-project-oop-server.onrender.com'
+export const serverURL = 'http://boggle-project-oop-server.onrender.com'
