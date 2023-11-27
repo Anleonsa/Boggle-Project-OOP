@@ -5,8 +5,9 @@ import { setUpColorScheme } from '../logic/color-scheme'
 import { useEffect } from 'react'
 import HomeGamesViewer from '../components/HomeGamesViewer/HomeGamesViewer'
 import RoomCreator from '../components/RoomCreator/RoomCreator'
+import { serverURL } from '../serverData'
 
-const socket = io('http://localhost:8080')
+const socket = io(serverURL)
 
 /* global sessionStorage */
 const Home = () => {
