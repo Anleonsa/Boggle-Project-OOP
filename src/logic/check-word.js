@@ -3,7 +3,7 @@ export const checkWord = (board, word) => {
 }
 
 const checkWordCreation = (board, word) => {
-  let pivot = 0;
+  /*let pivot = 0;
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board.length; j++) {
       if (board[i][j] == word[pivot]) {
@@ -12,7 +12,7 @@ const checkWordCreation = (board, word) => {
         }
       }
     }
-  }
+  }*/
 }
 
 const checkWordExistence = (word) => {
