@@ -11,7 +11,6 @@ const HomeGamesViewer = () => {
   useEffect(() => {
     socket.on('data-games', data => {
       setGames(data)
-      console.log(data)
     })
     return () => socket.off('data-games')
   }, [])
