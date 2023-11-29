@@ -1,13 +1,9 @@
 // import css from './Home.module.css'
-import { io } from 'socket.io-client'
 import Header from '../components/Header/Header'
 import { setUpColorScheme } from '../logic/color-scheme'
 import { useEffect } from 'react'
 import HomeGamesViewer from '../components/HomeGamesViewer/HomeGamesViewer'
 import RoomCreator from '../components/RoomCreator/RoomCreator'
-import { serverURL } from '../serverData'
-
-const socket = io(serverURL)
 
 /* global sessionStorage */
 const Home = () => {
@@ -16,12 +12,6 @@ const Home = () => {
   }, [])
 
   setUpColorScheme()
-
-  const send = () => {
-    socket.emit('user-info', {
-      user: socket.id
-    })
-  }
 
   return (
     <>
