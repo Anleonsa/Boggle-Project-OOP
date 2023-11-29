@@ -1,7 +1,21 @@
-.gamePlayersList {
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
-  background-color: #ddd;
   min-width: 220px;
+  background-color: #ddd;
+  transition:
+    background-color var(--transition-bg-dark-mode-time),
+    color var(--transition-bg-dark-mode-time);
+}
+
+.gamePlayersList {
+  
+}
+[color-scheme="dark"] .aside {
+  background-color: #333;
+  color: #ddd;
 }
 
 .gamePlayersListTitle {
@@ -10,6 +24,9 @@
   font-weight: 800;
   font-family: consolas;
   color: #444;
+}
+[color-scheme="dark"] .gamePlayersListTitle {
+  color: #ccc;
 }
 
 .gamePlayersListUl {
@@ -26,4 +43,11 @@
   font-family: consolas;
 }
 
+.ownScoreTitle {
+  font-size: 25px;
+  margin: 10px 0;
+}
 
+.ownScore {
+  font-size: 30px;
+}

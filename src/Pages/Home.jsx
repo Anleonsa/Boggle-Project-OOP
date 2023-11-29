@@ -30,7 +30,6 @@ const Home = () => {
         <RoomCreator />
         <HomeGamesViewer />
       </main>
-      <button onClick={send}>Send user id</button>
     </>
   )
 }

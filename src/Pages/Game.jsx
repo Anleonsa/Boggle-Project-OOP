@@ -15,6 +15,7 @@ const socket = io(serverURL)
 const Game = () => {
   const [game, setGame] = useState()
   const [writtenWord, setWrittenWord] = useState()
+
   const navigate = useNavigate()
 
   setUpColorScheme()
@@ -58,7 +59,6 @@ const Game = () => {
     if ((sessionStorage.getItem('playing-room') ?? sessionStorage.getItem('specting-room')) != null) {
       socket.on(`game-${sessionStorage.getItem('playing-room') ?? sessionStorage.getItem('specting-room')}`, gameData => {
         setGame(gameData)
-        console.log(gameData)
       })
 
       return () => {
@@ -78,24 +78,58 @@ const Game = () => {
 
   const POSSIBLE_GAME_STATUS = {
     open: 'open',
-    started: 'started'
+    running: 'running',
+    betweenRounds: 'betweenRounds',
+    finished: 'finished'
   }
 
   const startGame = () => {
     socket.emit('start-game', sessionStorage.getItem('playing-room'))
   }
 
+  // Update state with onChange
   const updateWord = e => {
     setWrittenWord(e.target.value)
   }
 
-  const submitWord = e => {
+  const addWord = word => {
+    socket.emit('add-word-in-game', {
+      room: sessionStorage.getItem('playing-room'),
+      playerId: sessionStorage.getItem('game-player-id'),
+      word
+    })
+    socket.emit('sync-game', {
+      room: sessionStorage.getItem('playing-room')
+    })
+  }
+
+  const submitWord = async e => {
     e.preventDefault()
-    if (checkWord(game.board, writtenWord)) {
-      window.alert('Good la palabra macho')
-      // socket.emit('add-written-word')
+    const data = await checkWord(game.board, writtenWord.toUpperCase())
+    if (
+      data &&
+      writtenWord.length >= 3 &&
+      !(game.players[sessionStorage.getItem('game-player-id')].words.includes(writtenWord.toLowerCase())) // Check that the player doesn't already have the word
+    ) {
+      // Send word to list
+      addWord(writtenWord.toLowerCase())
+      setWrittenWord('')
     }
   }
+
+  const exitGame = () => {
+    sessionStorage.removeItem('game-player-id')
+    sessionStorage.removeItem('playing-room')
+    navigate('/')
+  }
+
+  // Find maxScore
+  /* let maxScore = 0
+  if (game?.status === POSSIBLE_GAME_STATUS.finished) {
+    Object.values(game.players).forEach(player => {
+      if (player.points > maxScore) maxScore = player.points
+    })
+  } */
 
   return (
     <>
@@ -103,7 +137,44 @@ const Game = () => {
       <main className={css.gameMain}>
         <div className={css.gameFlexContainer}>
           <div className={css.gameBoardContainer}>
-            {game?.board ? <GameBoard board={game.board} status={game.status} /> : ''}
+            {
+              game?.status === POSSIBLE_GAME_STATUS.open
+                ? <div className={css.gameWaitingMsg}>Esperando a qué comienze la partida</div>
+                : ''
+            }
+            {
+              (game?.status === POSSIBLE_GAME_STATUS.running && game?.board)
+                ? (
+                  <>
+                    <div className={css.roundsAndTimerContainer}>
+                      <span className={css.gameRoundNumber}>Ronda #{game?.currentRound} de {game?.roundsNumber} rondas</span>
+                      <span className={css.gameTimer}>{game?.timeLeft}</span>
+                    </div>
+                    <GameBoard board={game.board} status={game.status} />
+                  </>
+                  )
+                : ''
+            }
+            {
+              game?.status === POSSIBLE_GAME_STATUS.betweenRounds
+                ? (
+                  <>
+                    <span className={css.gameRoundNumber}>Ronda #{game?.currentRound} de {game?.roundsNumber} rondas</span>
+                    <span className={css.gameBetweenRoundsMsg}>Resultados de la ronda</span>
+                  </>
+                  )
+                : ''
+            }
+            {
+              game?.status === POSSIBLE_GAME_STATUS.finished
+                ? (
+                  <>
+                    <span className={css.gameFinishedMsg}>Juego finalizado</span>
+                    <span className={css.gameBetweenRoundsMsg}>Resultados del juego</span>
+                  </>
+                  )
+                : ''
+            }
           </div>
           {game?.players ? <GamePlayersList players={game?.players} /> : ''}
         </div>
@@ -112,13 +183,74 @@ const Game = () => {
             ? <button className={`${css.gameStartBtn} clickable`} onClick={startGame}>Iniciar juego</button>
             : ''
         }
-        <form className={css.formWord} onSubmit={submitWord}>
-          <input type='text' className={css.gameInputWord} placeholder='Escribe la palabra' onChange={updateWord} />
-          <input type='submit' className={css.gameSubmitWordBtn} />
-        </form>
+        {
+          (game?.status === POSSIBLE_GAME_STATUS.running)
+            ? (
+              <>
+                <form className={css.formWord} onSubmit={submitWord}>
+                  <input type='text' className={css.gameInputWord} placeholder='Escribe la palabra' onChange={updateWord} value={writtenWord} />
+                  <input type='submit' className={css.gameSubmitWordBtn} />
+                </form>
+                <h2 className={css.gameFoundWordsTitle}>Palabras encontradas</h2>
+                <div className={css.wordsListContainer}>
+                  {game?.players[sessionStorage.getItem('game-player-id')].words.map((word, index) =>
+                    <span className={css.wordListWord} key={index}>{word}</span>
+                  )}
+                </div>
+              </>
+              )
+            : ''
+        }
+        {
+          (game?.status === POSSIBLE_GAME_STATUS.betweenRounds)
+            ? (
+              <>
+                <div className={css.gameBetweenRoundsResultsContainer}>
+                  {Object.entries(game.players).map(([playerId, player]) =>
+                    <GameBetweenRoundsPlayerResultsCard key={playerId} playerId={playerId} player={player} />
+                  )}
+                </div>
+              </>
+              )
+            : ''
+        }
+        {
+          game?.status === POSSIBLE_GAME_STATUS.finished
+            ? (
+              <>
+                <div className={css.gameFinalResultsCardsContainer}>
+                  {Object.entries(game.players).map(([playerId, player]) =>
+                    <GameFinalResultsCard player={player} key={playerId} />
+                  )}
+                </div>
+                <button className={css.gameFinalBtnExit} onClick={exitGame}>Salir de la partida</button>
+              </>
+              )
+            : ''
+        }
       </main>
     </>
+  )
+}
 
+const GameBetweenRoundsPlayerResultsCard = ({ player, playerId }) => {
+  return (
+    <div className={css.gameBetweenRoundsPlayerResultsCard}>
+      <span className={css.gameBetweenRoundsResultsCardPlayerName}>{player.name}</span>
+      {player.words.map((word, index) =>
+        <span className={css.gameBetweenRoundsResultsCardWord} key={`${playerId}${index}`}>{word}</span>
+      )}
+      <span className={css.gameBetweenRoundsResultsCardPoints}>Puntos: {player.roundPoints}</span>
+    </div>
+  )
+}
+
+const GameFinalResultsCard = ({ player }) => {
+  return (
+    <div className={`${css.gameFinalResultsCard}`}>
+      <span className={css.gameFinalResultCardName}>{player.name}</span>
+      <span className={css.gameFinalResultCardScore}>Puntaje: {player.points}</span>
+    </div>
   )
 }
 

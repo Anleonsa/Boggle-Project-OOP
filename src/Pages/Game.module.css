@@ -9,9 +9,38 @@
 
 .gameBoardContainer {
   flex-grow: 1;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
+.roundsAndTimerContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 700;
+}
+[color-scheme="dark"] .roundsAndTimerContainer {
+  color: #ddd;
+}
+
+.gameRoundNumber {
+  font-weight: normal;
+  font-size: 40px;
+}
+[color-scheme="dark"] .gameRoundNumber {
+  color: #ddd;
+}
+
+.gameWaitingMsg, .gameBetweenRoundsMsg, .gameFinishedMsg {
+  display: block;
+  font-size: 40px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  transition: color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameWaitingMsg, [color-scheme="dark"] .gameBetweenRoundsMsg, [color-scheme="dark"] .gameFinishedMsg {
+  color: #fff;
+}
 .gameStartBtn {
   display: block;
   margin: 10px auto;
@@ -32,10 +61,11 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin: 50px auto 10px auto;
+  margin: 20px auto 10px auto;
   padding: 15px;
   width: 95%;
   max-width: 600px;
+  border-radius: 6px;
   background-color: #efefef;
   transition: background-color var(--transition-bg-dark-mode-time);
 }
@@ -47,6 +77,7 @@
   font-size: 30px;
   padding: 5px;
   border: none;
+  border-radius: 5px;
   outline: 0;
   background-color: #d5d5d5;
   transition: background-color var(--transition-bg-dark-mode-time);
@@ -58,14 +89,144 @@
 
 .gameSubmitWordBtn {
   font-size: 30px;
-  padding: 1.7px;
+  padding: 1.7px 8px;
   background-color: var(--mid-orange);
   color: #fff;
   border: none;
+  border-radius: 5px;
   outline: 0;
   cursor: pointer;
   transition: background-color var(--transition-bg-dark-mode-time);
 }
 .gameSubmitWordBtn:hover {
   background-color: #c60;
+}
+
+.gameFoundWordsTitle {
+  font-weight: normal;
+  width: 98%;
+  margin: 20px auto;
+}
+[color-scheme="dark"] .gameFoundWordsTitle {
+  color: #ddd;
+}
+
+.wordsListContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 20px;
+  width: 98%;
+  margin: 0 auto;
+  background-color: #fff;
+  border: solid 3px #333;
+}
+[color-scheme="dark"] .wordsListContainer {
+  background-color: #333;
+  border-color: #888;
+}
+
+.wordListWord {
+  padding: 10px;
+  font-size: 19px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+
+/* Results between rounds */
+
+.gameBetweenRoundsResultsContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 10px;
+}
+
+.gameBetweenRoundsPlayerResultsCard {
+  display: flex;
+  flex-direction: column;
+  border: solid 2px #555;
+  border-radius: 5px;
+  overflow: hidden;
+  color: #333;
+}
+[color-scheme="dark"] .gameBetweenRoundsPlayerResultsCard {
+  border-color: #5e5e5e;
+  color: #ddd;
+}
+
+.gameBetweenRoundsResultsCardPlayerName {
+  font-size: 24px;
+  background-color: #08c;
+  padding: 6px;
+}
+
+.gameBetweenRoundsResultsCardWord {
+  font-size: 17px;
+  padding: 5px;
+  border: solid 1px #ccc;
+  font-weight: 400;
+}
+.gameBetweenRoundsResultsCardPoints {
+  padding: 6px;
+  border-top: solid 1px #ccc;
+}
+[color-scheme="dark"] .gameBetweenRoundsResultsCardWord, [color-scheme="dark"] .gameBetweenRoundsResultsCardPoints{
+  border-color: #555;
+}
+
+/* Final Results */
+
+.gameFinalResultsCardsContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 10px;
+}
+
+.gameFinalResultsCard {
+  display: flex;
+  flex-direction: column;
+  border: solid 2px #ccc;
+  border-radius: 5px;
+  font-size: 25px;
+}
+
+.gameFinalResultCardName {
+  padding: 10px;
+  text-align: center;
+  background-color: #08f;
+  transition: color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameFinalResultCardName {
+  background-color: #05c;
+  color: #ddd;
+}
+
+.gameFinalResultCardScore {
+  padding: 10px;
+  text-align: center;
+  transition: color var(--transition-bg-dark-mode-time);
+}
+[color-scheme="dark"] .gameFinalResultCardScore {
+  color: #ddd;
+}
+
+.gameFinalBtnExit {
+  display: block;
+  background-color: #f21;
+  color: #fff;
+  margin: 20px auto 5px auto;
+  padding: 10px;
+  font-size: 30px;
+  border: none;
+  border-radius: 5px;
+  outline: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-bg-dark-mode-time);
+}
+.gameFinalBtnExit:hover {
+  background-color: #c12;
 }

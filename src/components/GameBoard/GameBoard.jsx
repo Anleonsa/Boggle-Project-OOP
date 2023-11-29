@@ -1,15 +1,8 @@
 import css from './GameBoard.module.css'
 
 const GameBoard = ({ board, status }) => {
-  const POSSIBLE_GAME_STATUS = {
-    open: 'open',
-    started: 'started'
-  }
-
   return (
-    <>
-      {status === POSSIBLE_GAME_STATUS.started ? <Board board={board} /> : <div className={css.gameWaitingMsg}>Esperando a qué comienze la partida</div>}
-    </>
+    <Board board={board} />
   )
 }
 

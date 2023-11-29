@@ -48,7 +48,9 @@ const HomeGamesViewer = () => {
 const GameCard = ({ id, boardSize, roundsNumber, duration, status }) => {
   const POSSIBLE_GAME_STATUS = {
     open: 'open',
-    started: 'started'
+    running: 'running',
+    betweenRounds: 'betweenRounds',
+    finished: 'finished'
   }
 
   const navigate = useNavigate()
@@ -76,7 +78,9 @@ const GameCard = ({ id, boardSize, roundsNumber, duration, status }) => {
         <span>Duración por ronda:</span>
         <span className={css.gameCardValue}>{duration} minutos</span>
       </div>
-      {status === POSSIBLE_GAME_STATUS.open ? <button onClick={entryGame} className={`${css.gameCardJoinBtn} clickable`}>Unirse</button> : <span className={css.gameInGame}>Partida en juego</span>}
+      {status === POSSIBLE_GAME_STATUS.open ? <button onClick={entryGame} className={`${css.gameCardJoinBtn} clickable`}>Unirse</button> : ''}
+      {status === POSSIBLE_GAME_STATUS.running || status === POSSIBLE_GAME_STATUS.betweenRounds ? <span className={css.gameInGame}>Partida en juego</span> : ''}
+      {status === POSSIBLE_GAME_STATUS.finished ? <span className={css.finishedGame}>Partida finalizada</span> : ''}
     </div>
   )
 }
